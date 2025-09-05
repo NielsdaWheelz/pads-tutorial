@@ -1,35 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import Pad from "./Pad.tsx"
+import padsData from "./padsData.js"
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+
+  const [pads, setPads] = useState(padsData)
+
+  function toggle(id: number) {
+    setPads(pads.map((pad) => id === pad.id ? {...pad, on: !pad.on} : pad))
+    // setPads(prevPads => prevPads.map((pad) => {
+    //   return pad.id === id ? {...pad, on: !pad.on} : pad
+    // }))
+
+  }
+
+  const buttonElements = pads.map((pad) => (
+    <Pad key={pad.id} id={pad.id} color={pad.color} on={pad.on} toggle={toggle} />
+  ))
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main>
+      <div className="pad-container">
+        {buttonElements}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  </main>
+)
 }
-
-export default App
