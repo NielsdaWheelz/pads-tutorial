@@ -11,7 +11,6 @@ export default function App() {
     // setPads(prevPads => prevPads.map((pad) => {
     //   return pad.id === id ? {...pad, on: !pad.on} : pad
     // }))
-
   }
 
   const buttonElements = pads.map((pad) => (
